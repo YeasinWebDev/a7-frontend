@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={robotoMono.className}>
+      <body className={`${robotoMono.className} bg-[#0c0f11] text-gray-400`}>
         <Toaster />
         {children}
       </body>
