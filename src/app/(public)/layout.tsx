@@ -1,3 +1,4 @@
+import Footer from "@/components/common/Footer";
 import Navbar from "@/components/common/Navbar";
 
 export default function PublicLayout({
@@ -9,6 +10,7 @@ export default function PublicLayout({
     <div className="max-w-[95%] lg:max-w-[90%] xl:max-w-[80%] mx-auto  my-5">
       <Navbar />
       <main className="min-h-dvh">{children}</main>
+      <Footer/>
     </div>
   );
 }

@@ -4,7 +4,7 @@ import { IoFolderSharp } from "react-icons/io5";
 
 function Hero() {
   return (
-    <section className="w-full mt-20 flex flex-col-reverse lg:flex-row items-center justify-center gap-10 px-6 md:px-16">
+    <section className="max-w-7xl mx-auto my-20 flex flex-col-reverse lg:flex-row items-center gap-10 md:px-6 justify-between">
       {/* Left Content */}
       <div className="text-center lg:text-left max-w-xl space-y-6">
         <h1 className="text-4xl lg:text-5xl font-bold text-gray-200">
