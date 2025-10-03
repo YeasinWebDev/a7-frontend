@@ -28,7 +28,7 @@ export default function DashboardLayout({
 
       <main
         style={{
-          marginLeft: isOpen && window.innerWidth >= 768 ? "14rem" : "0rem",
+          marginLeft: isOpen && window.innerWidth >= 770 ? "14rem" : "0rem",
           transition: "margin-left 0.3s ease-in-out",
         }}
         className="flex-1 p-6 min-h-screen"

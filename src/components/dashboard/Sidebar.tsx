@@ -10,7 +10,7 @@ interface SidebarProps {
 
 const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
   const pathName = usePathname();
-  console.log(pathName.includes("blogs"));
+  
   return (
     <>
       {/* Sidebar */}
@@ -37,7 +37,7 @@ const Sidebar = ({ isOpen, onToggle }: SidebarProps) => {
       </aside>
 
       {/* Overlay for mobile */}
-      {isOpen && <div onClick={onToggle} className="fixed inset-0 bg-black bg-opacity-50 z-30 md:hidden" />}
+      {isOpen && <div onClick={onToggle} className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden" />}
     </>
   );
 };
