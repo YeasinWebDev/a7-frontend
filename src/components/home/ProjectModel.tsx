@@ -27,7 +27,7 @@ const DialogModel = ({ data }: DialogModelProps) => {
         </button>
       </DialogTrigger>
 
-      <DialogContent className="w-[600px] h-[80vh] overflow-y-scroll bg-[#0C0F11] text-gray-200">
+      <DialogContent className="w-[800px] h-[80vh] overflow-y-scroll bg-[#0C0F11] text-gray-200">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">{data.name}</DialogTitle>
           <DialogDescription className="text-gray-400">
