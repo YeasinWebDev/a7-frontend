@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { FaGithub, FaLinkedin, FaFacebook } from "react-icons/fa";
 
 export default function Footer() {
@@ -9,12 +10,12 @@ export default function Footer() {
 
         {/* Middle - Links */}
         <div className="flex gap-6 text-sm">
-          <a href="#projects" className="hover:text-white transition">
+          <Link href="/projects" className="hover:text-white transition">
             Projects
-          </a>
-          <a href="#blog" className="hover:text-white transition">
+          </Link>
+          <Link href="/blogs" className="hover:text-white transition">
             Blog
-          </a>
+          </Link>
         </div>
 
         {/* Right - Social Icons */}
