@@ -5,6 +5,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import toast from "react-hot-toast";
 import { blog } from "@/types";
 import { MdEdit } from "react-icons/md";
+import { createBlogAction, updateBlogAction } from "@/app/actions/blogActions";
 
 export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: boolean }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,58 +35,26 @@ export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: bo
   };
 
   const createBlog = async () => {
-    try {
-      let ans = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/create`, {
-        next: {
-          tags: ["blog"],
-        },
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    const result = await createBlogAction(formData);
 
-      if (ans?.ok) {
-        toast.success("Blog Created Successfully");
-        setIsOpen(false);
-        setFormData({
-          title: "",
-          image: "",
-          excerpt: "",
-          content: "",
-        });
-      }
-    } catch (error) {
-      console.error("Error creating blog:", error);
+    if (result.success) {
+      toast.success("Blog Created Successfully");
+      setIsOpen(false);
+      setFormData({ title: "", image: "", excerpt: "", content: "" });
+    } else {
+      toast.error(result.error || "Failed to create blog");
     }
   };
 
   const updateBlog = async () => {
-    try {
-      let ans = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${blog?.id}`, {
-        next: {
-          tags: ["blog"],
-        },
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (ans?.ok) {
-        toast.success("Blog Updated Successfully");
-        setIsOpen(false);
-        setFormData({
-          title: "",
-          image: "",
-          excerpt: "",
-          content: "",
-        });
-      }
-    } catch (error) {
-      console.error("Error updating blog:", error);
+    if (!blog?.id) return toast.error("Blog ID is missing");
+    
+    const result = await updateBlogAction(blog?.id, formData);
+    if (result.success) {
+      toast.success("Blog Updated Successfully");
+      setIsOpen(false);
+    } else {
+      toast.error(result.message || "Failed to update blog");
     }
   };
 

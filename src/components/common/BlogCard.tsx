@@ -6,18 +6,14 @@ import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { BlogModel } from "../dashboard/BlogModel";
 import { blog } from "@/types";
+import { deleteBlog } from "@/app/actions/blogActions";
 
 function BlogCard({ blog, className, isDashboard = false }: { blog: blog; className?: string; isDashboard?: boolean }) {
   const handleDelete = async (id: number) => {
     try {
-      let ans = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${id}`, {
-        next: {
-          tags: ["blog"],
-        },
-        method: "DELETE",
-      });
+      let ans = await deleteBlog(id);
 
-      if (ans?.ok) {
+      if (ans?.success) {
         toast.success("Blog Deleted Successfully");
       }
     } catch (error) {
