@@ -26,7 +26,7 @@ export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: bo
     e.preventDefault();
     console.log("Blog Data:", formData);
 
-    if(isDashboard) {
+    if (isDashboard) {
       await updateBlog();
     } else {
       await createBlog();
@@ -61,7 +61,7 @@ export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: bo
     }
   };
 
-  const updateBlog = async () =>{
+  const updateBlog = async () => {
     try {
       let ans = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${blog?.id}`, {
         next: {
@@ -87,7 +87,7 @@ export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: bo
     } catch (error) {
       console.error("Error updating blog:", error);
     }
-  }
+  };
 
   useEffect(() => {
     if (blog && isDashboard) {
@@ -114,7 +114,7 @@ export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: bo
 
       <DialogContent className="w-[800px] h-[80vh] overflow-y-scroll bg-[#0C0F11] text-gray-200 border-gray-800 custom-scroll">
         <DialogHeader className="mx-auto">
-          <DialogTitle className="text-xl font-bold">Create Blog</DialogTitle>
+          <DialogTitle className="text-xl font-bold">{isDashboard ? "Update" : "Create"} Blog</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4 md:p-4">
@@ -174,7 +174,7 @@ export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: bo
             />
           </div>
 
-          <button type="submit" className="p-2 mt-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-500 transition-all">
+          <button type="submit" className="p-2 mt-2 bg-gray-600 text-white rounded-md transition-all">
             Submit
           </button>
         </form>
