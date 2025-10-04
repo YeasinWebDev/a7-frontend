@@ -1,4 +1,5 @@
 import BlogCard from "@/components/common/BlogCard";
+import { blog } from "@/types";
 import React from "react";
 
 export const metadata = {
@@ -21,9 +22,3 @@ async function Page() {
 
 export default Page;
 
-interface blog {
-  id: number;
-  title: string;
-  excerpt: string;
-  image: string;
-}

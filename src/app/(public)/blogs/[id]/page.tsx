@@ -1,7 +1,8 @@
 import React from "react";
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
-  const blog = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${params.id}`).then((res) => res.json());
+  const {id} = await params
+  const blog = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${id}`).then((res) => res.json());
 
   if (!blog) {
     return {
@@ -22,7 +23,8 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 }
 
 export default async function BlogDetails({ params }: { params: { id: string } }) {
-  const blog = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${params.id}`, { next: { revalidate: 10 } }).then((res) => res.json());
+  const { id } = await params;
+  const blog = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${id}`, { next: { revalidate: 10 } }).then((res) => res.json());
 
   if (!blog) {
     return (

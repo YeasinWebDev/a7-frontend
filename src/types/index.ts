@@ -7,3 +7,12 @@ export interface Project {
   github: string;
   tech: string[]; 
 }
+
+
+export interface blog {
+  id: number;
+  title: string;
+  excerpt: string;
+  image: string;
+  content: string;
+}

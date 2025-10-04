@@ -118,3 +118,32 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+
+
+
+
+/* Custom scrollbar for dark theme */
+.custom-scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-track {
+  background: #0C0F11; /* match modal background */
+}
+
+.custom-scroll::-webkit-scrollbar-thumb {
+  background: #3f3f46; /* gray-700 */
+  border-radius: 8px;
+}
+
+.custom-scroll::-webkit-scrollbar-thumb:hover {
+  background: #52525b; /* gray-600 */
+}
+
+/* Firefox support */
+.custom-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 #0C0F11;
+}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import React from "react";
 import BlogCard from "../common/BlogCard";
+import { blog } from "@/types";
 
 async function Blogs() {
   const blogs = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/all`, { next: { tags: ["blog"] } }).then((res) => res.json());
@@ -20,11 +21,5 @@ async function Blogs() {
   );
 }
 
-interface blog {
-  id: number;
-  title: string;
-  excerpt: string;
-  image: string;
-}
 
 export default Blogs;
