@@ -1,10 +1,39 @@
+"use client";
 import Link from "next/link";
 import React from "react";
 import DialogModel from "../home/ProjectModel";
+import { Project } from "@/types";
+import { MdDelete } from "react-icons/md";
+import toast from "react-hot-toast";
+import ProjectModal from "../dashboard/ProjectModel";
 
-function ProjectCard({ project,className }: { project: project,className?:string }) {
+function ProjectCard({ project, className, isDashboard }: { project: Project; className?: string; isDashboard?: boolean }) {
+  const handleDelete = async (id: number) => {
+    try {
+      let ans = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${id}`, {
+        next: {
+          tags: ["project"],
+        },
+        method: "DELETE",
+      });
+
+      if (ans?.ok) {
+        toast.success("Project Deleted Successfully");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
-    <div className={`border-2 border-gray-600 rounded-xl flex flex-col cursor-pointer hover:scale-105 duration-300 transition-all ${className}`}>
+    <div className={`border-2 border-gray-600 rounded-xl flex flex-col cursor-pointer hover:scale-105 duration-300 transition-all relative ${className}`}>
+      {isDashboard && (
+        <div className="absolute top-2 right-2 cursor-pointer gap-4 flex items-center">
+          <ProjectModal isDashboard={true} project={project} />
+          <button className="bg-red-200 text-black font-bold rounded-sm transition-all cursor-pointer p-2" onClick={() => handleDelete(project.id!)}>
+            <MdDelete size={20} color="red" />
+          </button>
+        </div>
+      )}
       <img className="rounded-t-xl" src={project.image} alt="projects image" />
       <div className="p-2 flex flex-col flex-grow">
         <h1 className="font-semibold text-xl">{project.name}</h1>
@@ -22,7 +51,11 @@ function ProjectCard({ project,className }: { project: project,className?:string
           <Link className="text-gray-500 hover:text-gray-300 font-semibold border-2 border-gray-500 hover:border-gray-300 px-3 py-2 rounded-xl" href={project.live} target="_blank">
             Live
           </Link>
-          <Link className="text-gray-500 hover:text-gray-300 font-semibold border-2 border-gray-500 hover:border-gray-300 px-3 py-2 rounded-xl" href={project.github} target="_blank">
+          <Link
+            className="text-gray-500 hover:text-gray-300 font-semibold border-2 border-gray-500 hover:border-gray-300 px-3 py-2 rounded-xl"
+            href={project.github}
+            target="_blank"
+          >
             GitHub
           </Link>
         </div>
@@ -30,16 +63,6 @@ function ProjectCard({ project,className }: { project: project,className?:string
       </div>
     </div>
   );
-}
-
-interface project {
-  name: string;
-  image: string;
-  description: string;
-  features: string[];
-  live: string;
-  github: string;
-  tech: string[];
 }
 
 export default ProjectCard;
