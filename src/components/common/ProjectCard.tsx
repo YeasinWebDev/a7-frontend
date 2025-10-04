@@ -6,22 +6,16 @@ import { Project } from "@/types";
 import { MdDelete } from "react-icons/md";
 import toast from "react-hot-toast";
 import ProjectModal from "../dashboard/ProjectModel";
+import { deleteProject } from "@/app/actions/projectAction";
 
 function ProjectCard({ project, className, isDashboard }: { project: Project; className?: string; isDashboard?: boolean }) {
   const handleDelete = async (id: number) => {
-    try {
-      let ans = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${id}`, {
-        next: {
-          tags: ["project"],
-        },
-        method: "DELETE",
-      });
+    const ans = await deleteProject(id);
 
-      if (ans?.ok) {
-        toast.success("Project Deleted Successfully");
-      }
-    } catch (error) {
-      console.log(error);
+    if (ans?.success) {
+      toast.success("Project Deleted Successfully");
+    } else {
+      toast.error(ans?.error || "Failed to delete project");
     }
   };
   return (

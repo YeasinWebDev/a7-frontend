@@ -10,6 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { Project } from "@/types";
 import toast from "react-hot-toast";
 import { MdEdit } from "react-icons/md";
+import { createProject, updateProject } from "@/app/actions/projectAction";
 
 export default function ProjectModal({ isDashboard = false, project }: { isDashboard?: boolean; project?: Project }) {
   const [open, setOpen] = useState(false);
@@ -37,7 +38,6 @@ export default function ProjectModal({ isDashboard = false, project }: { isDashb
       });
     }
   }, [project, isDashboard]);
-
 
   const [featureInput, setFeatureInput] = useState("");
 
@@ -71,7 +71,7 @@ export default function ProjectModal({ isDashboard = false, project }: { isDashb
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    
+
     if (!form.name.trim() || !form.image.trim() || !form.description.trim() || !form.live.trim() || !form.github.trim()) {
       toast.error("Project name, image, description, live link and github link is required");
     }
@@ -86,48 +86,28 @@ export default function ProjectModal({ isDashboard = false, project }: { isDashb
   }
 
   const handleCreate = async (payload: Project) => {
-    try {
-      let ans = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/create`, {
-        next: {
-          tags: ["project"],
-        },
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+    const ans = await createProject(payload);
 
-      if (ans?.ok) {
-        toast.success("Project Created Successfully");
-        setOpen(false);
-        resetForm();
-      }
-    } catch (error) {
-      console.error("Error creating project:", error);
+    if (ans?.success) {
+      toast.success("Project Created Successfully");
+      setOpen(false);
+      resetForm();
+    } else {
+      toast.error(ans?.error || "Failed to create project");
     }
   };
 
   const handleUpdate = async (payload: Project) => {
-    try {
-      let ans = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${project?.id}`, {
-        next: {
-          tags: ["project"],
-        },
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      });
+    if (!project?.id) return toast.error("Project not found");
 
-      if (ans?.ok) {
-        toast.success("Project Updated Successfully");
-        setOpen(false);
-        resetForm();
-      }
-    } catch (error) {
-      console.error("Error updating project:", error);
+    const ans = await updateProject(project?.id, payload);
+
+    if (ans?.success) {
+      toast.success("Project Updated Successfully");
+      setOpen(false);
+      resetForm();
+    } else {
+      toast.error(ans?.error || "Failed to update project");
     }
   };
 
@@ -139,12 +119,12 @@ export default function ProjectModal({ isDashboard = false, project }: { isDashb
             <MdEdit size={20} color="green" />
           </button>
         ) : (
-          <button className="border rounded-md border-gray-500 hover:border-gray-300 p-2 hover:text-gray-300 hover:scale-105 transition-all cursor-pointer">Create Blog</button>
+          <button className="border rounded-md border-gray-500 hover:border-gray-300 p-2 hover:text-gray-300 hover:scale-105 transition-all cursor-pointer">Create Project</button>
         )}
       </DialogTrigger>
       <DialogContent className="sm:max-w-2xl h-[90vh] max-w-xl bg-[#0C0F11] text-gray-200 border-gray-800 overflow-y-scroll custom-scroll">
         <DialogHeader>
-          <DialogTitle className="w-full flex items-center justify-center mb-10 text-xl">Create a new project</DialogTitle>
+          <DialogTitle className="w-full flex items-center justify-center mb-10 text-xl">{isDashboard ? "Update Project" : "Create Project"}</DialogTitle>
         </DialogHeader>
 
         <form onSubmit={handleSubmit} className="space-y-4">

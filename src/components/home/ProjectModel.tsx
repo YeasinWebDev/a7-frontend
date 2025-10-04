@@ -86,7 +86,7 @@ const DialogModel = ({ data }: DialogModelProps) => {
         <DialogFooter>
           <button
             onClick={() => setIsOpen(false)}
-            className="mt-4 p-2 bg-gray-400 text-black font-bold rounded-sm hover:bg-gray-300 transition-all"
+            className="mt-4 h-10 p-2 bg-gray-400 text-black font-bold rounded-sm hover:bg-gray-300 transition-all"
           >
             Close
           </button>
