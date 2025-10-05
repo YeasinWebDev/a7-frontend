@@ -4,7 +4,8 @@ import BlogCard from "../common/BlogCard";
 import { blog } from "@/types";
 
 async function Blogs() {
-  const blogs = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/all`, { next: { tags: ["blog"] } }).then((res) => res.json());
+  const blogsRow = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/all`, { next: { tags: ["blog"] } })
+  const blogs = await blogsRow.json();
   return (
     <section className="max-w-7xl mx-auto md:px-6 py-16 text-center md:text-left flex flex-col items-start">
       <h2 className="text-2xl md:text-4xl font-bold text-center w-full mb-5">My Blog Posts📝</h2>

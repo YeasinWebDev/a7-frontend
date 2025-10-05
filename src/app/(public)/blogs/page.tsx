@@ -8,7 +8,8 @@ export const metadata = {
 };
 
 async function Page() {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/all`, { next: { tags: ["blog"] } }).then((res) => res.json());
+  const dataRow = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/all`, { next: { tags: ["blog"] } });
+  const data = await dataRow.json();
 
   return (
     <div>
@@ -21,4 +22,3 @@ async function Page() {
 }
 
 export default Page;
-

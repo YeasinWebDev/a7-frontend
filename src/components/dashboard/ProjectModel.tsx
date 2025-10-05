@@ -73,7 +73,7 @@ export default function ProjectModal({ isDashboard = false, project }: { isDashb
     e.preventDefault();
 
     if (!form.name.trim() || !form.image.trim() || !form.description.trim() || !form.live.trim() || !form.github.trim()) {
-      toast.error("Project name, image, description, live link and github link is required");
+      return toast.error("Project name, image, description, live link and github link is required");
     }
 
     const payload = { ...form };
@@ -251,7 +251,7 @@ export default function ProjectModal({ isDashboard = false, project }: { isDashb
           </div>
 
           <DialogFooter>
-            <div className="flex items-center justify-end w-full">
+            <div className="flex items-center justify-end w-full mt-4">
               <div className="flex gap-2">
                 <Button
                   type="button"
@@ -259,10 +259,13 @@ export default function ProjectModal({ isDashboard = false, project }: { isDashb
                     setOpen(false);
                     resetForm();
                   }}
+                  className="cursor-pointer w-28"
                 >
                   Cancel
                 </Button>
-                <Button type="submit">Create</Button>
+                <Button type="submit" className="cursor-pointer w-28">
+                  Create
+                </Button>
               </div>
             </div>
           </DialogFooter>

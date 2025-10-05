@@ -4,7 +4,8 @@ import ProjectCard from "../common/ProjectCard";
 import { Project } from "@/types";
 
 async function Projects() {
-  const data = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/all`, { next: { tags: ["project"] } }).then((res) => res.json());
+  const dataRow = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/project/all`, { next: { tags: ["project"] } })
+  const data = await dataRow.json();
 
   return (
     <section id="projects" className="max-w-7xl mx-auto md:px-6 py-16 text-center md:text-left flex flex-col items-start">

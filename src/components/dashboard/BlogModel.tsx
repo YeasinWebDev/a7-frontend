@@ -48,7 +48,7 @@ export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: bo
 
   const updateBlog = async () => {
     if (!blog?.id) return toast.error("Blog ID is missing");
-    
+
     const result = await updateBlogAction(blog?.id, formData);
     if (result.success) {
       toast.success("Blog Updated Successfully");
@@ -143,7 +143,7 @@ export const BlogModel = ({ blog, isDashboard }: { blog?: blog; isDashboard?: bo
             />
           </div>
 
-          <button type="submit" className="p-2 mt-2 bg-gray-600 text-white rounded-md transition-all">
+          <button type="submit" className="p-2 mt-2 bg-gray-600 text-white rounded-md transition-all cursor-pointer">
             Submit
           </button>
         </form>
