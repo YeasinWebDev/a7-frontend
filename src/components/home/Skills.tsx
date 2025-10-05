@@ -2,9 +2,9 @@ import React from "react";
 
 function Skills() {
   const img = [
-    "/icons/HTML.png",
+    "/icons/html.png",
     "/icons/css.png",
-    "/icons/JavaScript.png",
+    "/icons/javaScript.png",
     "/icons/react.png",
     "/icons/nextjs.png",
     "/icons/tailwind.png",
