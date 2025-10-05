@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Sidebar from "@/components/dashboard/Sidebar";
 import { FaTimes, FaBars } from "react-icons/fa";
+import { useRouter } from "next/navigation";
 
 export default function DashboardLayout({
   children,
@@ -9,6 +10,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   const [isOpen, setIsOpen] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const stored = localStorage.getItem("sidebarOpen");
@@ -21,6 +23,21 @@ export default function DashboardLayout({
       return !prev;
     });
   };
+
+  useEffect(() => {
+    const getUser = async () => {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/user/me`, {
+        credentials: "include",
+        cache: "no-store",
+      });
+
+      if (!res.ok) {
+        return router.push("/login");
+      }
+    };
+
+    getUser();
+  }, []);
 
   return (
     <div className="flex">
