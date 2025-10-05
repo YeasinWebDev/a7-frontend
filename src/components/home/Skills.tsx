@@ -4,7 +4,7 @@ function Skills() {
   const img = [
     "/icons/html.png",
     "/icons/css.png",
-    "/icons/javaScript.png",
+    "/icons/javascript.png",
     "/icons/react.png",
     "/icons/nextjs.png",
     "/icons/tailwind.png",
